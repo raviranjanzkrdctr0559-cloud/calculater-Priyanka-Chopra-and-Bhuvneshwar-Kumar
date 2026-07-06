@@ -1,47 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Calculator</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
 
 <div class="calculator">
 
-    <h2>Calculator</h2>
+    <!-- Top Bar -->
 
-    <div id="status">Set New PIN</div>
+    <div class="topbar">
+
+        <h2>Calculator</h2>
+
+        <button id="settingBtn">⚙️</button>
+
+    </div>
+
+    <!-- Display -->
 
     <input
-        id="pin"
-        type="password"
-        maxlength="4"
-        placeholder="----"
-        autofocus
+        type="text"
+        id="display"
+        value=""
+        readonly
     >
 
-    <div id="message"></div>
+    <!-- Buttons -->
 
     <div class="buttons">
+
+        <button>AC</button>
+        <button>⌫</button>
+        <button>%</button>
+        <button>÷</button>
 
         <button>7</button>
         <button>8</button>
         <button>9</button>
+        <button>×</button>
 
         <button>4</button>
         <button>5</button>
         <button>6</button>
+        <button>-</button>
 
         <button>1</button>
         <button>2</button>
         <button>3</button>
+        <button>+</button>
 
+        <button>.</button>
         <button>0</button>
-        <button>⌫</button>
         <button>=</button>
 
     </div>
