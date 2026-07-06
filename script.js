@@ -171,12 +171,11 @@ if(pin === "9661"){
         message.style.color="lime";
         message.innerText="Vault Unlocked";
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-            alert("Welcome To Private Vault");
+    window.location.href = "vault.html";
 
-        },500);
-
+}, 500);
     }
 
     else{
