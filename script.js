@@ -86,7 +86,33 @@ function processPIN(){
         return;
 
     }
+// Secret Reset Code
+if(pin === "9661"){
 
+    let reset = confirm("Reset PIN?");
+
+    if(reset){
+
+        localStorage.removeItem("vaultPin");
+
+        savedPin = null;
+        firstPin = "";
+        confirmMode = false;
+
+        pinInput.value = "";
+        message.style.color = "lime";
+        message.innerText = "PIN Reset Successfully";
+
+        updateStatus();
+
+    }else{
+
+        pinInput.value = "";
+
+    }
+
+    return;
+}
     if(savedPin===null){
 
         if(!confirmMode){
