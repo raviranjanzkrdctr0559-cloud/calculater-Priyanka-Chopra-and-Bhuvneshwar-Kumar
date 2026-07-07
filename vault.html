@@ -3,109 +3,45 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Private Vault</title>
 
-<link rel="stylesheet" href="vault.css">
+<link rel="stylesheet" href="css/vault.css">
 
 </head>
 
 <body>
 
-<header>
+<div class="vault">
 
-<h2>🔐 Private Vault</h2>
+<div class="top">
 
-<div class="top-icons">
+<h1>🔐 My Vault</h1>
 
-<button title="Settings">⚙️</button>
-
-<button title="Profile">👤</button>
+<button id="logoutBtn">Logout</button>
 
 </div>
 
-</header>
+<div class="grid">
 
-<div class="search-box">
+<div class="card" id="photos">📷<br>Photos</div>
 
-<input
-type="text"
-placeholder="Search Files..."
-id="search"
->
+<div class="card" id="videos">🎥<br>Videos</div>
 
-</div>
+<div class="card" id="documents">📄<br>Documents</div>
 
-<div class="categories">
+<div class="card" id="folders">📁<br>Folders</div>
 
-<div class="card">
-<span>🖼️</span>
-Photos
-</div>
+<div class="card" id="favorites">⭐<br>Favorites</div>
 
-<div class="card">
-<span>🎥</span>
-Videos
-</div>
+<div class="card" id="recycle">🗑️<br>Recycle Bin</div>
 
-<div class="card">
-<span>📄</span>
-Documents
-</div>
-
-<div class="card">
-<span>⭐</span>
-Favorites
-</div>
-
-<div class="card">
-<span>🗑️</span>
-Recycle Bin
-</div>
-
-<div class="card">
-<span>📁</span>
-Folders
 </div>
 
 </div>
 
-<div class="upload-area">
-
-<h3>Upload Files</h3>
-
-<label class="upload-btn">
-
-Choose Files
-
-<input
-type="file"
-id="fileInput"
-multiple
->
-
-</label>
-
-</div>
-
-<div
-class="file-list"
-id="fileList"
->
-
-</div>
-
-<button
-class="lock-btn"
-onclick="location.href='index.html'"
-title="Lock Vault">
-
-🔒
-
-</button>
-
-<script src="vault.js"></script>
+<script src="js/vault.js"></script>
 
 </body>
 </html>
