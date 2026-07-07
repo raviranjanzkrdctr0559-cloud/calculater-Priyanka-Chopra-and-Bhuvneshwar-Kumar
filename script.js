@@ -1,41 +1,68 @@
-const pinInput = document.getElementById("pin");
-const statusText = document.getElementById("status");
-const message = document.getElementById("message");
+const display = document.getElementById("display");
+const buttons = document.querySelectorAll(".btn");
+const settingsBtn = document.getElementById("settingsBtn");
 
-const buttons = document.querySelectorAll(".buttons button");
+let expression = "";
 
-let savedPin = localStorage.getItem("vaultPin");
+buttons.forEach(button => {
 
-let firstPin = "";
-let confirmMode = false;
+    button.addEventListener("click", () => {
 
-updateStatus();
+        const value = button.innerText;
 
-buttons.forEach(btn=>{
+        switch(value){
 
-    btn.addEventListener("click",()=>{
+            case "AC":
+                expression = "";
+                display.value = "0";
+                break;
 
-        let value = btn.innerText;
+            case "⌫":
+                expression = expression.slice(0,-1);
+                display.value = expression || "0";
+                break;
 
-        if(value==="⌫"){
+            case "=":
 
-            pinInput.value=pinInput.value.slice(0,-1);
+                try{
 
-        }
+                    let exp = expression
+                    .replace(/×/g,"*")
+                    .replace(/÷/g,"/");
 
-        else if(value==="="){
+                    display.value = eval(exp);
 
-            processPIN();
+                    expression = display.value;
 
-        }
+                }
 
-        else{
+                catch{
 
-            if(pinInput.value.length<4){
+                    display.value = "Error";
 
-                pinInput.value+=value;
+                    expression = "";
 
-            }
+                }
+
+                break;
+
+            case "%":
+
+                if(expression!=""){
+
+                    expression = (parseFloat(expression)/100).toString();
+
+                    display.value = expression;
+
+                }
+
+                break;
+
+            default:
+
+                expression += value;
+
+                display.value = expression;
 
         }
 
@@ -43,148 +70,8 @@ buttons.forEach(btn=>{
 
 });
 
-pinInput.addEventListener("keydown",(e)=>{
+settingsBtn.addEventListener("click",()=>{
 
-    if(e.key==="Enter"){
-
-        processPIN();
-
-    }
+    alert("⚙️ Settings Coming Soon");
 
 });
-
-function updateStatus(){
-
-    if(savedPin===null){
-
-        if(confirmMode){
-
-            statusText.innerText="Confirm PIN";
-
-        }else{
-
-            statusText.innerText="Set New PIN";
-
-        }
-
-    }else{
-
-        statusText.innerText="Enter PIN";
-
-    }
-
-}
-
-function processPIN(){
-
-    let pin=pinInput.value;
-
-    if(pin.length!==4){
-
-        message.style.color="red";
-        message.innerText="PIN must be 4 digits";
-        return;
-
-    }
-// Secret Reset Code
-if(pin === "9661"){
-
-    let reset = confirm("Reset PIN?");
-
-    if(reset){
-
-        localStorage.removeItem("vaultPin");
-
-        savedPin = null;
-        firstPin = "";
-        confirmMode = false;
-
-        pinInput.value = "";
-        message.style.color = "lime";
-        message.innerText = "PIN Reset Successfully";
-
-        updateStatus();
-
-    }else{
-
-        pinInput.value = "";
-
-    }
-
-    return;
-}
-    if(savedPin===null){
-
-        if(!confirmMode){
-
-            firstPin=pin;
-
-            confirmMode=true;
-
-            pinInput.value="";
-
-            message.style.color="orange";
-            message.innerText="Enter same PIN again";
-
-            updateStatus();
-
-            return;
-
-        }
-
-        if(pin===firstPin){
-
-            localStorage.setItem("vaultPin",pin);
-
-            savedPin=pin;
-
-            confirmMode=false;
-
-            message.style.color="lime";
-            message.innerText="PIN Saved Successfully";
-
-            statusText.innerText="Enter PIN";
-
-        }
-
-        else{
-
-            firstPin="";
-
-            confirmMode=false;
-
-            message.style.color="red";
-            message.innerText="PIN doesn't match";
-
-            updateStatus();
-
-        }
-
-        pinInput.value="";
-
-        return;
-
-    }
-
-    if(pin===savedPin){
-
-        message.style.color="lime";
-        message.innerText="Vault Unlocked";
-
-        setTimeout(() => {
-
-    window.location.href = "vault.html";
-
-}, 500);
-    }
-
-    else{
-
-        message.style.color="red";
-        message.innerText="Wrong PIN";
-
-    }
-
-    pinInput.value="";
-
-}
