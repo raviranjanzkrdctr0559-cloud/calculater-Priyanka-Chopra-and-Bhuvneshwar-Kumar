@@ -1,57 +1,88 @@
-// ==========================
-// Private Vault V3.1
-// ==========================
+// ============================
+// Private Vault V3
+// ============================
 
+window.addEventListener("load", async () => {
+
+    // Database Open
+    await openDatabase();
+
+    console.log("Database Ready");
+
+});
+
+// ----------------------------
 // Logout
+// ----------------------------
+
 const logoutBtn = document.getElementById("logoutBtn");
 
 logoutBtn.addEventListener("click", () => {
 
     if(confirm("Lock Vault?")){
 
-        window.location.href = "../index.html";
+        location.href="../index.html";
 
     }
 
 });
 
-// Cards
-const cards = document.querySelectorAll(".card");
+// ----------------------------
+// Photo Upload
+// ----------------------------
 
-cards.forEach(card => {
+const photoPicker = document.getElementById("photoPicker");
 
-    card.addEventListener("click", () => {
+const photosCard = document.getElementById("photos");
 
-        const id = card.id;
+photosCard.addEventListener("click",()=>{
 
-        switch(id){
-
-            case "photos":
-                alert("📷 Photos Module (Coming Next)");
-                break;
-
-            case "videos":
-                alert("🎥 Videos Module (Coming Next)");
-                break;
-
-            case "documents":
-                alert("📄 Documents Module (Coming Next)");
-                break;
-
-            case "folders":
-                alert("📁 Folder System (Coming Next)");
-                break;
-
-            case "favorites":
-                alert("⭐ Favorites (Coming Next)");
-                break;
-
-            case "recycle":
-                alert("🗑️ Recycle Bin (Coming Next)");
-                break;
-
-        }
-
-    });
+    photoPicker.click();
 
 });
+
+photoPicker.addEventListener("change",async()=>{
+
+    const file = photoPicker.files[0];
+
+    if(!file) return;
+
+    await uploadPhoto(file);
+
+    photoPicker.value="";
+
+});
+
+// ----------------------------
+// Coming Soon Modules
+// ----------------------------
+
+document.getElementById("videos").onclick=()=>{
+
+    alert("🎥 Videos Module Coming Next");
+
+};
+
+document.getElementById("documents").onclick=()=>{
+
+    alert("📄 Documents Module Coming Next");
+
+};
+
+document.getElementById("folders").onclick=()=>{
+
+    alert("📁 Folder System Coming Next");
+
+};
+
+document.getElementById("favorites").onclick=()=>{
+
+    alert("⭐ Favorites Coming Next");
+
+};
+
+document.getElementById("recycle").onclick=()=>{
+
+    alert("🗑️ Recycle Bin Coming Next");
+
+};
