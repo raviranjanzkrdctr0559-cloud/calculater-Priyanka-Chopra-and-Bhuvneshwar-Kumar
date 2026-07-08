@@ -53,7 +53,29 @@ async function loadPhotos(){
 
         card.className="photo-card";
 
-        card.innerHTML=`
+       card.innerHTML = `
+
+<img src="${url}">
+
+<div class="photo-name">
+
+${photo.name}
+
+</div>
+
+<div class="photo-actions">
+
+<button onclick="favoritePhoto('${photo.id}')">
+⭐
+</button>
+
+<button onclick="deletePhoto('${photo.id}')">
+🗑️
+</button>
+
+</div>
+
+`;
 
             <img src="${url}">
 
@@ -68,5 +90,16 @@ async function loadPhotos(){
         gallery.appendChild(card);
 
     });
+
+}
+async function deletePhoto(id){
+
+    alert("🗑️ Delete feature V4.1 me add hoga");
+
+}
+
+async function favoritePhoto(id){
+
+    alert("⭐ Favorite feature V4.1 me add hoga");
 
 }
