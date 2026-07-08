@@ -149,3 +149,38 @@ header h2{
     cursor:pointer;
 
 }
+.photo-actions{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:10px;
+
+}
+
+.photo-actions button{
+
+width:48%;
+
+height:40px;
+
+border:none;
+
+border-radius:8px;
+
+background:#444;
+
+color:white;
+
+cursor:pointer;
+
+font-size:18px;
+
+}
+
+.photo-actions button:hover{
+
+background:#00b894;
+
+}
