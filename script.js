@@ -187,17 +187,6 @@ function processEqual(){
 
 }
 
-settingsBtn.onclick = ()=>{
-
-    alert(
-`⚙️ Settings
-
-V2
-
-PIN : ${savedPin ? "Already Set" : "Not Set"}
-
-V3 me Change PIN aur Security add hogi.`
-);
 
 };
 const modal = document.getElementById("settingsModal");
