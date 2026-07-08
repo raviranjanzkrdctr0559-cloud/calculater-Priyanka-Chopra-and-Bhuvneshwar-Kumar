@@ -188,7 +188,6 @@ function processEqual(){
 }
 
 
-};
 const modal = document.getElementById("settingsModal");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const changePinBtn = document.getElementById("changePinBtn");
