@@ -62,7 +62,17 @@ function loadRecycle(){
 
             box.appendChild(img);
             box.appendChild(restoreBtn);
+const deleteBtn = document.createElement("button");
 
+deleteBtn.innerHTML = "❌";
+
+deleteBtn.className = "delete-btn";
+
+deleteBtn.style.right = "50px";
+
+deleteBtn.onclick = () => permanentDelete(photo.id);
+
+box.appendChild(deleteBtn);
             gallery.appendChild(box);
 
         });
@@ -92,6 +102,23 @@ function restorePhoto(id){
             loadRecycle();
 
         };
+
+    };
+
+}
+function permanentDelete(id){
+
+    if(!confirm("Permanently delete this photo?")) return;
+
+    const tx = db.transaction("files","readwrite");
+
+    const store = tx.objectStore("files");
+
+    store.delete(id);
+
+    tx.oncomplete = () => {
+
+        loadRecycle();
 
     };
 
