@@ -5,13 +5,15 @@ async function uploadPhoto(file){
     reader.onload = async function(e){
 
         const photo = {
-            id: Date.now(),
-            name: file.name,
-            data: e.target.result
-        };
+    name: file.name,
+    data: e.target.result,
+    type: "photo",
+    favorite: false,
+    folder: "Photos"
+};
 
-        const tx = db.transaction("photos","readwrite");
-        const store = tx.objectStore("photos");
+        const tx = db.transaction("files","readwrite");
+       const store = tx.objectStore("files");
 
         store.add(photo);
 
@@ -33,14 +35,14 @@ function loadPhotos(){
 
     gallery.innerHTML = "";
 
-    const tx = db.transaction("photos","readonly");
-    const store = tx.objectStore("photos");
+    const tx = db.transaction("files","readonly");
+   const store = tx.objectStore("files");
 
     const request = store.getAll();
 
     request.onsuccess = ()=>{
 
-        const photos = request.result;
+       const photos = request.result.filter(file => file.type === "photo");
 
         if(photos.length===0){
 
