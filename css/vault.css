@@ -217,3 +217,44 @@ body{
     user-select:none;
 
 }
+/* Photo Box */
+
+.photo-box{
+
+    position:relative;
+
+}
+
+.delete-btn{
+
+    position:absolute;
+
+    top:8px;
+
+    right:8px;
+
+    width:35px;
+
+    height:35px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:red;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    display:none;
+
+}
+
+.photo-box:hover .delete-btn{
+
+    display:block;
+
+}
