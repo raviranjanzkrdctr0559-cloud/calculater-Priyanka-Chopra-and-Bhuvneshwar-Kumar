@@ -1,105 +1,67 @@
-// ===============================
-// Photo Upload Module
-// ===============================
-
 async function uploadPhoto(file){
 
-    if(!file) return;
+    const reader = new FileReader();
 
-    await saveFile({
+    reader.onload = async function(e){
 
-        name: file.name,
+        const photo = {
+            id: Date.now(),
+            name: file.name,
+            data: e.target.result
+        };
 
-        type: "photo",
+        const tx = db.transaction("photos","readwrite");
+        const store = tx.objectStore("photos");
 
-        folder: "Photos",
+        store.add(photo);
 
-        favorite: false,
+        tx.oncomplete = () => {
 
-        deleted: false,
+            loadPhotos();
 
-        date: Date.now(),
+        };
 
-        blob: file
+    };
 
-    });
-
-    alert("📷 Photo Saved Successfully");
+    reader.readAsDataURL(file);
 
 }
-async function loadPhotos(){
+
+function loadPhotos(){
 
     const gallery = document.getElementById("photoGallery");
 
-    const files = await getAllFiles();
-
-    const photos = files.filter(file => file.type === "photo");
-
     gallery.innerHTML = "";
 
-    if(photos.length===0){
+    const tx = db.transaction("photos","readonly");
+    const store = tx.objectStore("photos");
 
-        gallery.innerHTML="<p>No Photos Yet</p>";
+    const request = store.getAll();
 
-        return;
+    request.onsuccess = ()=>{
 
-    }
+        const photos = request.result;
 
-    photos.forEach(photo=>{
+        if(photos.length===0){
 
-        const url = URL.createObjectURL(photo.blob);
+            gallery.innerHTML="<p>No Photos Yet</p>";
 
-        const card = document.createElement("div");
+            return;
 
-        card.className="photo-card";
+        }
 
-       card.innerHTML = `
+        photos.forEach(photo=>{
 
-<img src="${url}">
+            const img=document.createElement("img");
 
-<div class="photo-name">
+            img.src=photo.data;
 
-${photo.name}
+            img.className="photo-thumb";
 
-</div>
+            gallery.appendChild(img);
 
-<div class="photo-actions">
+        });
 
-<button onclick="favoritePhoto('${photo.id}')">
-⭐
-</button>
-
-<button onclick="deletePhoto('${photo.id}')">
-🗑️
-</button>
-
-</div>
-
-`;
-
-            <img src="${url}">
-
-            <div class="photo-name">
-
-                ${photo.name}
-
-            </div>
-
-        `;
-
-        gallery.appendChild(card);
-
-    });
-
-}
-async function deletePhoto(id){
-
-    alert("🗑️ Delete feature V4.1 me add hoga");
-
-}
-
-async function favoritePhoto(id){
-
-    alert("⭐ Favorite feature V4.1 me add hoga");
+    };
 
 }
