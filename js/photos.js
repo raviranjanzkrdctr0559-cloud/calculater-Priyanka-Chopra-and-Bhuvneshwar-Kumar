@@ -59,7 +59,13 @@ function loadPhotos(){
             img.src=photo.data;
 
             img.className="photo-thumb";
+img.onclick = () => {
 
+    document.getElementById("previewModal").style.display = "flex";
+
+    document.getElementById("previewImage").src = photo.data;
+
+};
             gallery.appendChild(img);
 
         });
