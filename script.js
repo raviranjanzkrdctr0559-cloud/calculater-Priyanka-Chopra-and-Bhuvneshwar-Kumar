@@ -159,15 +159,12 @@ function processEqual(){
 
     try{
 
-        let result = eval(
-
-            expression
-
-            .replace(/×/g,"*")
-
-            .replace(/÷/g,"/")
-
-        );
+       let result = eval(
+    expression
+        .replace(/×/g,"*")
+        .replace(/÷/g,"/")
+        .replace(/%/g,"/100")
+);
 
         expression = result.toString();
 
