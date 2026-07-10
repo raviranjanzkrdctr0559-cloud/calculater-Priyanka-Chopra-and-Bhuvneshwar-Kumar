@@ -42,7 +42,11 @@ function loadPhotos(){
 
     request.onsuccess = ()=>{
 
-       const photos = request.result.filter(file => file.type === "photo");
+      const photos = request.result.filter(file =>
+
+    file.type === "photo" && !file.deleted
+
+);
 
         if(photos.length===0){
 
@@ -88,7 +92,15 @@ delBtn.onclick = async (e) => {
 
         const store = tx.objectStore("files");
 
-        store.delete(photo.id);
+        store.get(photo.id).onsuccess = function(e){
+
+    const data = e.target.result;
+
+    data.deleted = true;
+
+    store.put(data);
+
+};
 
         tx.oncomplete = ()=>{
 
