@@ -61,9 +61,11 @@ function loadPhotos(){
             img.className="photo-thumb";
 img.onclick = () => {
 
-    document.getElementById("previewModal").style.display = "flex";
+    const modal = document.getElementById("previewModal");
+    const image = document.getElementById("previewImage");
 
-    document.getElementById("previewImage").src = photo.data;
+    image.src = photo.data;
+    modal.style.display = "flex";
 
 };
             gallery.appendChild(img);
@@ -73,8 +75,18 @@ img.onclick = () => {
     };
 
 }
-document.getElementById("closePreview").onclick = () => {
+window.addEventListener("load", () => {
 
-    document.getElementById("previewModal").style.display = "none";
+    const closeBtn = document.getElementById("closePreview");
 
-};
+    if(closeBtn){
+
+        closeBtn.onclick = () => {
+
+            document.getElementById("previewModal").style.display = "none";
+
+        };
+
+    }
+
+});
