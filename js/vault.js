@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
     await openDatabase();
 
     console.log("Database Ready");
-
+loadPhotos();
 });
 
 // ----------------------------
