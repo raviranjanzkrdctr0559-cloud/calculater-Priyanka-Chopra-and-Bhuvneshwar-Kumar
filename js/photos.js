@@ -73,3 +73,8 @@ img.onclick = () => {
     };
 
 }
+document.getElementById("closePreview").onclick = () => {
+
+    document.getElementById("previewModal").style.display = "none";
+
+};
