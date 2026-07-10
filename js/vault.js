@@ -81,8 +81,8 @@ document.getElementById("favorites").onclick=()=>{
 
 };
 
-document.getElementById("recycle").onclick=()=>{
+document.getElementById("recycle").onclick = () => {
 
-    alert("🗑️ Recycle Bin Coming Next");
+    location.href = "recycle.html";
 
 };
