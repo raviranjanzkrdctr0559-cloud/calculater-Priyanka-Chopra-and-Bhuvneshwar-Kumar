@@ -21,7 +21,7 @@ logoutBtn.addEventListener("click", () => {
 
     if(confirm("Lock Vault?")){
 
-        location.href="../index.html";
+      location.href="index.html";
 
     }
 
