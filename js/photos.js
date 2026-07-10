@@ -68,7 +68,43 @@ img.onclick = () => {
     modal.style.display = "flex";
 
 };
-            gallery.appendChild(img);
+            const box = document.createElement("div");
+
+box.className = "photo-box";
+
+const delBtn = document.createElement("button");
+
+delBtn.className = "delete-btn";
+
+delBtn.innerHTML = "🗑️";
+
+delBtn.onclick = async (e) => {
+
+    e.stopPropagation();
+
+    if(confirm("Delete this photo?")){
+
+        const tx = db.transaction("files","readwrite");
+
+        const store = tx.objectStore("files");
+
+        store.delete(photo.id);
+
+        tx.oncomplete = ()=>{
+
+            loadPhotos();
+
+        };
+
+    }
+
+};
+
+box.appendChild(img);
+
+box.appendChild(delBtn);
+
+gallery.appendChild(box);
 
         });
 
