@@ -102,7 +102,56 @@
                                 return;
                             }
 
-                            box.append(name, player);
+                            
+const deleteButton = document.createElement("button");
+deleteButton.type = "button";
+deleteButton.textContent = "🗑️ Delete";
+deleteButton.style.cssText =
+    "padding:8px 14px;margin-top:8px;cursor:pointer;";
+
+deleteButton.onclick = async () => {
+    if (!confirm("Move this video to Recycle Bin?")) return;
+
+    deleteButton.disabled = true;
+
+    try {
+        await new Promise((resolve, reject) => {
+            const tx = db.transaction("files", "readwrite");
+            const store = tx.objectStore("files");
+
+            const request = store.get(item.id);
+
+            request.onsuccess = () => {
+                const savedVideo = request.result;
+
+                if (!savedVideo || savedVideo.type !== "video") {
+                    reject(new Error("Video not found"));
+                    return;
+                }
+
+                // Keep the video data; only mark it deleted.
+                savedVideo.deleted = true;
+                store.put(savedVideo);
+            };
+
+            request.onerror = () => reject(request.error);
+            tx.oncomplete = resolve;
+            tx.onerror = () => reject(tx.error);
+            tx.onabort = () => reject(tx.error);
+        });
+
+        status.textContent = "Video moved to Recycle Bin.";
+        await loadVideos();
+
+    } catch (error) {
+        console.error("Video delete error:", error);
+        alert("Video delete nahi hua. Dobara try karo.");
+        deleteButton.disabled = false;
+    }
+};
+
+box.append(name, player, deleteButton);
+
                             gallery.appendChild(box);
                         });
 
